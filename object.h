@@ -90,7 +90,6 @@ namespace object
 
       int searching_by_category()
     {
-    y = 0;
         std::fstream file;
             file.open("doxc.txt", std::ios::in);
             if(file.good()==false)
@@ -99,7 +98,7 @@ namespace object
             }
             else
             {
-                std::cout<<"Manage to open file!"<<std::endl<<std::endl;
+                std::cout<<"Manage to open file!"<<std::endl;
             }
                 while(getline(file, help_line, '|'))
                 {
@@ -108,10 +107,10 @@ namespace object
                     try
                     {
                         help_id = std::stoi(help_line);
-                        a_id[y/5] = help_id/5 +1;
-                        id_array[y][x] = &a_id[y];
-                        std::cout<<help_id<< "; "<<a_id[y/5]<<"; ";
-
+                        a_id[y] = help_id +1;
+                        id_array[y][0] = &a_id[y];
+                        //std::cout<<help_id<< "; "<<a_id[y]<<"; ";
+                        y++;
                     }
                     catch (const std::invalid_argument &e)
                     {
@@ -119,13 +118,13 @@ namespace object
                     }
                 }
                 element_number++;
-                    y++;
+
                 }
 
                 file.close();
 
                 element_number = 0;
-                y = 0;
+                y = 1;
 
                 file.open("doxc.txt", std::ios::in);
             if(file.good()==false)
@@ -136,17 +135,23 @@ namespace object
             {
                 std::cout<<"Manage to open file!"<<std::endl<<std::endl;
             }
-        x = 1;
+
+            std::cout<<"podaj nazwe kategori: ";
+                std::cin>>category_help;
+
                 while(getline(file,help_line, '|'))
                 {
                     if (element_number % 5 == 2) // ID jest co 5. wartością w wierszu
                     {
-                        string_array[y] = help_line;
-                        id_array[y][x] = &string_array[y];
-                        std::cout<<y<<"; ";
+
+                    if(category_help==help_line)
+                    {
+                        help_id = y;
+                       // std::cout<<y;
+                    }
+                    y++;
                     }
                 element_number++;
-                y++;
                 }
                 file.close();
 
@@ -161,21 +166,38 @@ namespace object
             }
                 element_number = 0;
 
-                std::cout<<"podaj nazwe kategori: ";
-                std::cin>>category_help;
+                while(getline(file, help_line,'|'))
+                {
+                    switch(element_number%5)
+                    {
+                        case 0:
+                        {
+                            try
+                                {
+                                    if(stoi(help_line) == help_id)
+                                        {
+                                        getline(file, help_line, '\n');
+                                        std::cout<<help_id<<"|"<<help_line<<std::endl;
+                                        }
+                                }
+                            catch (const std::invalid_argument &e)
+                                {
+                                    std::cerr << "dziala: " << e.what() << std::endl<<std::endl;
+                                }
+                    }
+                    }
+                    element_number++;
+                }
 
+
+/*
             x = 0; y = 0;
 
                 while(getline(file, help_line, '|'))
                 {
-                    if(category_help==help_line)
-                    {
-                        help_id = y-2;
-                        std::cout<<y;
 
-                    }
                     element_number++;
-                    y++;
+
                 }
                 file.close();
 
@@ -208,7 +230,7 @@ namespace object
                     }
                 }
             }
-
+*/
         file.close();
 
         return 0;
