@@ -1,0 +1,8 @@
+1|jajo|nabial|1.20|30|
+2|filet z kurczaka|mieso|30.4|8|
+3|jablko|owoc|4.5|15|
+4|bazylia|ziolo|15.6|100|
+5|dynia|warzywo|40.3|32|
+6|chleb|pieczywo|2.5|48|
+7|wodka|alkohol|40.58|281|
+8|woda|woda|1.4|473|
