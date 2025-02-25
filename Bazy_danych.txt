@@ -4,19 +4,17 @@ ID pracownika  INT, klucz główny, autoincrement
 Imię  TEXT
 Nazwisko  TEXT
 Stanowisko  TEXT
-Data Rozpoczęcia Pracy  DATE
+Data_Rozpoczęcia_Pracy  DATE
 Pensja  INT
+Adres TEXT
 
 2. Sprzęt
 
 ID sprzętu  INT, klucz główny, autoincrement
-Kategoria  TEXT
-Marka  TEXT
-Model  TEXT
-Stan Techniczny  TEXT
-Data Ostatniego Przeglądu  DATE
-Data uzyskania sprzętu DATE
-Koszt dnia  INT
+Stan_Techniczny  TEXT
+Data_Ostatniego_Przeglądu  DATE
+Data_uzyskania_sprzętu DATE
+Koszt_dnia  INT
 
 3. Klienci
 
@@ -33,17 +31,17 @@ ID wypożyczenia INT, klucz główny, autoincrement
 ID klienta klucz obcy, INT, powiązany z Klienci
 ID sprzętu klucz obcy, INT, powiązany z Sprzęt
 ID pracownik klucz obcy, INT, powiązany z Pracownicy
-Data Wypożyczenia DATE
-Data Zwrotu DATE
+Data_Wypożyczenia DATE
+Data_Zwrotu DATE
 Kaucja DECIMAL
-Forma Płatności TEXT
+Forma_Płatności TEXT
 
 5. Problemy techniczne
 
 ID problemu klucz główny, INT, autoincrement
 ID sprzętu klucz obcy, INT, powiązany z Sprzęt
-Opis Problemu TEXT
-Data Zgłoszenia DATE
+Opis_Problemu TEXT
+Data_Zgłoszenia DATE
 Status TEXT
 
 6. Opinie klientów
@@ -53,32 +51,33 @@ ID Klienta  klucz obcy, INT, powiązany z Klienci
 ID sprzęt  klucz obcy,  INT, powiązany z Sprzęt
 Ocena INT
 Komentarz TEXT
-Data Opinii DATE
+Data_Opinii DATE
 
 7. Kable
 
 ID sprzętu  INT, klucz główny, autoincrement
 Długość TEXT
-Typ Złącza TEXT
+Typ_Złącza TEXT
 Kolor TEXT
+max_moc
 
 8. Wzmacniacze
 
 ID sprzętu  INT, klucz główny, autoincrement
-Moc Wat TEXT
+Moc_Wat TEXT
 Impedancja TEXT
-Pasmo Przenoszenia TEXT
+Pasmo_Przenoszenia TEXT
 
 9. Głośniki
 
 ID sprzętu  INT, klucz główny, autoincrement
-Moc Wat TEXT
+Moc_Wat TEXT
 Impedancja TEXT
-Średnica Membrany TEXT
+Średnica_Membrany TEXT
 
 10. Mikrofony
 
 ID sprzętu  INT, klucz główny, autoincrement
-Typ Mikrofonu TEXT
-Pasmo Przenoszenia TEXT
+Typ_Mikrofonu TEXT
+Pasmo_Przenoszenia TEXT
 Czułość TEXT
