@@ -11,10 +11,10 @@ namespace object
     class Object
     {
         public:
-            void* id_array[50][2];
-            int how_many, ID, help_id = 0, element_number = 0, help_element  = 0, x=0,y=0, a_id[50], abc[50];
+            void* id_array[50][2];  
+            int how_many, ID, help_id = 0, element_number = 0, y=0, a_id[50];
             float price;
-            std::string name, category, help_line, category_help, row_line, string_array[50];
+            std::string name, category, help_line, category_help, row_line;
 
         void opening_read()
         {
@@ -109,7 +109,6 @@ namespace object
                         help_id = std::stoi(help_line);
                         a_id[y] = help_id +1;
                         id_array[y][0] = &a_id[y];
-                        //std::cout<<help_id<< "; "<<a_id[y]<<"; ";
                         y++;
                     }
                     catch (const std::invalid_argument &e)
@@ -141,13 +140,12 @@ namespace object
 
                 while(getline(file,help_line, '|'))
                 {
-                    if (element_number % 5 == 2) // ID jest co 5. wartością w wierszu
+                    if (element_number % 5 == 2)
                     {
 
                     if(category_help==help_line)
                     {
                         help_id = y;
-                       // std::cout<<y;
                     }
                     y++;
                     }
@@ -188,56 +186,10 @@ namespace object
                     }
                     element_number++;
                 }
-
-
-/*
-            x = 0; y = 0;
-
-                while(getline(file, help_line, '|'))
-                {
-
-                    element_number++;
-
-                }
-                file.close();
-
-                file.open("doxc.txt", std::ios::in);
-            if(file.good()==false)
-            {
-                std::cout<<"error"<<std::endl;
-            }
-            else
-            {
-                std::cout<<"Manage to open file!"<<std::endl<<std::endl;
-            }
-
-            element_number = 0;
-
-            while(getline(file, help_line, '|'))
-            {
-                if (element_number % 5 == 0) // ID jest co 5. wartością w wierszu
-                {
-                try
-                    {
-                    if(stoi(help_line)==*(int*)id_array[help_id][0])
-                    {
-                        std::cout<< *(int*)id_array[help_id][0]<<"|"<<std::endl;
-                    }
-                    }
-                    catch (const std::invalid_argument &e)
-                    {
-                        std::cerr << "you fucked something up: " << e.what() << std::endl<<std::endl;
-                    }
-                }
-            }
-*/
+                
         file.close();
 
         return 0;
           }
-
-
-
     };
-
 }
