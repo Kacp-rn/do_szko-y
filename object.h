@@ -54,7 +54,7 @@ namespace object
 
             while(getline(file, help_line,'|'))
             {
-                if (element_number % 5 == 0) // ID jest co 5. wartością w wierszu
+                if (element_number % 5 == 0) 
                 {
                     try
                     {
@@ -102,7 +102,7 @@ namespace object
             }
                 while(getline(file, help_line, '|'))
                 {
-                    if (element_number % 5 == 0) // ID jest co 5. wartością w wierszu
+                    if (element_number % 5 == 0)
                 {
                     try
                     {
