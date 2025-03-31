@@ -1,0 +1,119 @@
+-- Tabela: Pracownicy
+CREATE TABLE Pracownicy (
+    ID_Pracownika INT PRIMARY KEY AUTO_INCREMENT,
+    Imię TEXT,
+    Nazwisko TEXT,
+    Stanowisko TEXT,
+    Data_Rozpoczęcia_Pracy DATE,
+    Pensja INT,
+    Adres TEXT
+);
+
+-- Tabela: Sprzęt
+CREATE TABLE Sprzęt (
+    ID_Sprzętu INT PRIMARY KEY AUTO_INCREMENT,
+    Stan_Techniczny TEXT,
+    Data_Ostatniego_Przeglądu DATE,
+    Data_Uzyskania_Sprzętu DATE,
+    Koszt_Dnia INT
+);
+
+-- Tabela: Klienci
+CREATE TABLE Klienci (
+    ID_Klienta INT PRIMARY KEY AUTO_INCREMENT,
+    Imię TEXT,
+    Nazwisko TEXT,
+    Telefon TEXT,
+    Email TEXT,
+    Adres TEXT
+);
+
+-- Tabela: Wypożyczenia
+CREATE TABLE Wypożyczenia (
+    ID_Wypożyczenia INT PRIMARY KEY AUTO_INCREMENT,
+    ID_Klienta INT,
+    ID_Sprzętu INT,
+    ID_Pracownik INT,
+    Data_Wypożyczenia DATE,
+    Data_Zwrotu DATE,
+    Kaucja DECIMAL,
+    Forma_Płatności TEXT,
+    FOREIGN KEY (ID_Klienta) REFERENCES Klienci(ID_Klienta),
+    FOREIGN KEY (ID_Sprzętu) REFERENCES Sprzęt(ID_Sprzętu),
+    FOREIGN KEY (ID_Pracownik) REFERENCES Pracownicy(ID_Pracownika)
+);
+
+-- Tabela: Problemy Techniczne
+CREATE TABLE Problemy_Techniczne (
+    ID_Problemu INT PRIMARY KEY AUTO_INCREMENT,
+    ID_Sprzętu INT,
+    Opis_Problemu TEXT,
+    Data_Zgłoszenia DATE,
+    Status TEXT,
+    FOREIGN KEY (ID_Sprzętu) REFERENCES Sprzęt(ID_Sprzętu)
+);
+
+-- Tabela: Opinie Klientów
+CREATE TABLE Opinie_Klientów (
+    ID_Opinii INT PRIMARY KEY AUTO_INCREMENT,
+    ID_Klienta INT,
+    ID_Sprzętu INT,
+    Ocena INT,
+    Komentarz TEXT,
+    Data_Opinii DATE,
+    FOREIGN KEY (ID_Klienta) REFERENCES Klienci(ID_Klienta),
+    FOREIGN KEY (ID_Sprzętu) REFERENCES Sprzęt(ID_Sprzętu)
+);
+
+-- Tabela: Kable
+CREATE TABLE Kable (
+    ID_Sprzętu INT PRIMARY KEY AUTO_INCREMENT,
+    Długość TEXT,
+    Typ_Złącza TEXT,
+    Kolor TEXT,
+    Max_Moc TEXT
+);
+
+-- Tabela: Wzmacniacze
+CREATE TABLE Wzmacniacze (
+    ID_Sprzętu INT PRIMARY KEY AUTO_INCREMENT,
+    Moc_Wat TEXT,
+    Impedancja TEXT,
+    Pasmo_Przenoszenia TEXT
+);
+
+-- Tabela: Głośniki
+CREATE TABLE Głośniki (
+    ID_Sprzętu INT PRIMARY KEY AUTO_INCREMENT,
+    Moc_Wat TEXT,
+    Impedancja TEXT,
+    Średnica_Membrany TEXT
+);
+
+-- Tabela: Mikrofony
+CREATE TABLE Mikrofony (
+    ID_Sprzętu INT PRIMARY KEY AUTO_INCREMENT,
+    Typ_Mikrofonu TEXT,
+    Pasmo_Przenoszenia TEXT,
+    Czułość TEXT
+);
+
+-- Tabela: Projekty
+CREATE TABLE Projekty (
+    ID_Projektu INT PRIMARY KEY AUTO_INCREMENT,
+    Nazwa TEXT,
+    Data_Rozpoczęcia DATE,
+    Data_Zakończenia DATE,
+    Budżet DECIMAL,
+    ID_Pracownika INT,
+    FOREIGN KEY (ID_Pracownika) REFERENCES Pracownicy(ID_Pracownika)
+);
+
+-- Tabela: Uczestnicy Projektów
+CREATE TABLE Uczestnicy_Projektów (
+    ID_Projektu INT,
+    ID_Klienta INT,
+    PRIMARY KEY (ID_Projektu, ID_Klienta),
+    FOREIGN KEY (ID_Projektu) REFERENCES Projekty(ID_Projektu),
+    FOREIGN KEY (ID_Klienta) REFERENCES Klienci(ID_Klienta)
+);
