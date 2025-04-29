@@ -69,6 +69,7 @@
         padding: 20px;
     }
     .car-tile {
+        position: relative;
         border: 3px solid #ffa500; /* Pomarańczowy */
         border-radius: 15px;
         padding: 50px; /* Większe wypełnienie wewnętrzne */
@@ -80,10 +81,21 @@
         font-size: 24px; /* Większy tekst */
         font-weight: bold;
         transition: box-shadow 0.3s ease, transform 0.3s ease;
+        overflow: hidden;
     }
     .car-tile:hover {
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Delikatne cieniowanie */
         transform: translateY(-5px); /* Lekkie uniesienie kafelka */
+    }
+    .car-tile img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: auto;
+        opacity: 0.2; /* Półprzezroczystość */
+        pointer-events: none; /* Wyłączenie interakcji z obrazem */
     }
     .car-tile#porshe {
         background-color: #e63946; /* Czerwony kojarzący się z Porshe */
@@ -142,12 +154,30 @@
         </ul>
     </nav>
     <main class="main-section">
-        <a href="porshe.php" class="car-tile" id="porshe">Porshe</a>
-        <a href="cadilac.php" class="car-tile" id="cadilac">Cadilac</a>
-        <a href="bmw.php" class="car-tile" id="bmw">BMW</a>
-        <a href="mercedes.php" class="car-tile" id="mercedes">Mercedes</a>
-        <a href="audi.php" class="car-tile" id="audi">Audi</a>
-        <a href="toyota.php" class="car-tile" id="toyota">Toyota</a>
+        <a href="porshe.php" class="car-tile" id="porshe">
+            Porshe
+            <img src="images/porsche-logo.png" alt="Porshe Logo">
+        </a>
+        <a href="cadilac.php" class="car-tile" id="cadilac">
+            Cadilac
+            <img src="images/cadillac-logo.png" alt="Cadilac Logo">
+        </a>
+        <a href="bmw.php" class="car-tile" id="bmw">
+            BMW
+            <img src="images/bmw-logo.png" alt="BMW Logo">
+        </a>
+        <a href="mercedes.php" class="car-tile" id="mercedes">
+            Mercedes
+            <img src="images/mercedes-logo.png" alt="Mercedes Logo">
+        </a>
+        <a href="audi.php" class="car-tile" id="audi">
+            Audi
+            <img src="images/audi-logo.png" alt="Audi Logo">
+        </a>
+        <a href="toyota.php" class="car-tile" id="toyota">
+            Toyota
+            <img src="images/toyota-logo.png" alt="Toyota Logo">
+        </a>
     </main>
     <footer>
         Copydown © Kacper Nalepa

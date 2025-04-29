@@ -104,12 +104,37 @@
             object-fit: cover;
             border-radius: 10px;
         }
+        .likes-dislikes {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+        }
+        .likes-dislikes h3 {
+            margin: 10px 0;
+        }
+        .likes-dislikes button {
+            background-color: #ffa500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        .likes-dislikes button:hover {
+            background-color: #ff7f00;
+        }
         footer {
             background-color: #ffa500;
             color: white;
             text-align: center;
             padding: 10px 0;
-           
             bottom: 0;
             width: 100%;
         }
@@ -136,7 +161,7 @@
     <nav>
         <ul>
             <li><a href="porshe.php">Porshe</a></li>
-            <li><a href="cadilac.php">Cadilac</a></li>
+            <li><a href="cadilac.php">Cadillac</a></li>
             <li><a href="bmw.php">BMW</a></li>
             <li><a href="mercedes.php">Mercedes</a></li>
             <li><a href="audi.php">Audi</a></li>
@@ -194,14 +219,8 @@
             </div>
         </div>
     </main>
-    <footer>
-        Copydown © Kacper Nalepa
-    </footer>
-</body>
-</html>
 
-<?php
-
+    <?php
         $conn = mysqli_connect("localhost", "root", "", "auta");
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
@@ -224,22 +243,25 @@
         
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (isset($_POST['like'])) {
-                    $likes++;
-                    $sql = "UPDATE page_likes SET likes = $likes WHERE page_name = 'audi'";
+                    $sql = "UPDATE page_likes SET likes = likes + 1 WHERE page_name = 'audi'";
                 } elseif (isset($_POST['dislike'])) {
-                    $dislikes++;
-                    $sql = "UPDATE page_likes SET dislikes = $dislikes WHERE page_name = 'audi'";
+                    $sql = "UPDATE page_likes SET dislikes = dislikes + 1 WHERE page_name = 'audi'";
                 }
                 if (mysqli_query($conn, $sql)) {
-                    
+                    header("Location: audi.php");
+                    exit();
                 } else {
                     echo "Error updating record: " . mysqli_error($conn);
                 }
             }
-
         } else {
             echo "Error: " . mysqli_error($conn);
         }
+        mysqli_close($conn);
+    ?>
 
-
-?>
+    <footer>
+        Copydown © Kacper Nalepa
+    </footer>
+</body>
+</html>

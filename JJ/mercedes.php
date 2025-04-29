@@ -104,6 +104,32 @@
             object-fit: cover;
             border-radius: 10px;
         }
+        .likes-dislikes {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+        }
+        .likes-dislikes h3 {
+            margin: 10px 0;
+        }
+        .likes-dislikes button {
+            background-color: #ffa500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        .likes-dislikes button:hover {
+            background-color: #ff7f00;
+        }
         footer {
             background-color: #ffa500;
             color: white;
@@ -191,57 +217,52 @@
             </div>
         </div>
     </main>
+
+    <?php
+        $conn = mysqli_connect("localhost", "root", "", "auta");
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        $sql = "SELECT likes, dislikes FROM page_likes WHERE page_name = 'mercedes'";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $likes = $row['likes'];
+            $dislikes = $row['dislikes'];
+
+            echo "<div class='likes-dislikes'>";
+            echo "<h3>Polubienia: $likes</h3>";
+            echo "<h3>Niepolubienia: $dislikes</h3>";
+            echo "<form method='POST' action=''>";
+            echo "<input type='hidden' name='page_name' value='mercedes'>";
+            echo "<button type='submit' name='like'>Lubię to</button>";
+            echo "<button type='submit' name='dislike'>Nie lubię</button>";
+            echo "</form>";
+            echo "</div>";
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                if (isset($_POST['like'])) {
+                    $sql = "UPDATE page_likes SET likes = likes + 1 WHERE page_name = 'mercedes'";
+                } elseif (isset($_POST['dislike'])) {
+                    $sql = "UPDATE page_likes SET dislikes = dislikes + 1 WHERE page_name = 'mercedes'";
+                }
+                if (mysqli_query($conn, $sql)) {
+                    header("Location: mercedes.php");
+                    exit();
+                } else {
+                    echo "Error updating record: " . mysqli_error($conn);
+                }
+            }
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
+
+        mysqli_close($conn);
+    ?>
+
     <footer>
         Copydown © Kacper Nalepa
     </footer>
 </body>
 </html>
-
-<?php
-
-$conn = mysqli_connect("localhost", "root", "", "auta");
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-// Pobranie liczby lajków i dislajków dla podstrony "mercedes"
-$sql = "SELECT likes, dislikes FROM page_likes WHERE page_name = 'mercedes'";
-$result = mysqli_query($conn, $sql);
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $likes = $row['likes'];
-    $dislikes = $row['dislikes'];
-
-    // Wyświetlenie liczby lajków i dislajków oraz formularza
-    echo "<div class='likes-dislikes'>";
-    echo "<h3>Polubienia: $likes</h3>";
-    echo "<h3>Niepolubienia: $dislikes</h3>";
-    echo "<form method='POST' action=''>";
-    echo "<input type='hidden' name='page_name' value='mercedes'>";
-    echo "<button type='submit' name='like'>Lubię to</button>";
-    echo "<button type='submit' name='dislike'>Nie lubię</button>";
-    echo "</form>";
-    echo "</div>";
-
-    // Obsługa formularza
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if (isset($_POST['like'])) {
-            $sql = "UPDATE page_likes SET likes = likes + 1 WHERE page_name = 'mercedes'";
-        } elseif (isset($_POST['dislike'])) {
-            $sql = "UPDATE page_likes SET dislikes = dislikes + 1 WHERE page_name = 'mercedes'";
-        }
-        if (mysqli_query($conn, $sql)) {
-            // Przekierowanie, aby odświeżyć licznik bez ponownego wysyłania formularza
-            header("Location: mercedes.php");
-            exit();
-        } else {
-            echo "Error updating record: " . mysqli_error($conn);
-        }
-    }
-} else {
-    echo "Error: " . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-
-?>
